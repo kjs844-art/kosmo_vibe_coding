@@ -12,6 +12,19 @@ coverage/
 !.env.*.example
 *.local
 
+# Token and secret files must stay only on this computer.
+*.token
+*.secret
+*.secrets
+secrets.*
+tokens.*
+github-token.txt
+github-token.*
+personal-access-token.*
+config.local.json
+mcp.local.json
+*.local.json
+
 # Logs and temporary run outputs
 logs/
 *.log
