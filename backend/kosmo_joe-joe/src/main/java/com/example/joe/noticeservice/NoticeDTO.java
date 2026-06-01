@@ -16,6 +16,12 @@ import lombok.Setter;
 @Getter // getter 생성: dto.getVariable(), dto.getNumber()
 @Setter // setter 생성: dto.setVariable(...), dto.setNumber(...)
 public class NoticeDTO {
+
+	private Long id;
+	
+	private String title;
+	
+	private String date;
 	
 	private String variable;
 	

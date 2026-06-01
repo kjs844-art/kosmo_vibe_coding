@@ -27,6 +27,9 @@ function App() {
     // Login 화면에서 받은 JWT 토큰을 브라우저 세션 저장소에 보관합니다.
     sessionStorage.setItem('access-token', tokenData['access-token'])
     sessionStorage.setItem('refresh-token', tokenData['refresh-token'])
+    // 수업 예제처럼 accessToken 이름으로 꺼내는 코드도 동작하도록 같은 값을 한 번 더 저장합니다.
+    sessionStorage.setItem('accessToken', tokenData['access-token'])
+    sessionStorage.setItem('refreshToken', tokenData['refresh-token'])
   }
 
   return (

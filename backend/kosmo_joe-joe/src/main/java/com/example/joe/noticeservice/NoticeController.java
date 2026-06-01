@@ -4,6 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.util.List;
 
 /*
  * [Java 공식]
@@ -34,21 +37,14 @@ public class NoticeController {
 	 * 6. return "notice/list"가 /WEB-INF/views/notice/list.jsp로 이동
 	 * 7. JSP에서 ${output.variable}, ${output.number}로 출력
 	 */
+	@ResponseBody
 	@GetMapping("/notice/list")
-	public String list(Model model) {
-		// 공식: 데이터타입 변수명 = 오른쪽 결과값
-		// NoticeDTO dto = output.list();
-		// output.list() 결과값을 dto 변수에 대입합니다.
-		NoticeDTO dto = output.list();
+	public List<NoticeDTO> list() throws Exception {
+		System.out.println("notice list");
+		System.out.println("main branch");
 		
-		// 공식: model.addAttribute("JSP에서 부를 이름", 실제 데이터)
-		// a = b 느낌으로 보면, output 이름 = dto 데이터 입니다.
-		model.addAttribute("output", dto);
-		
-		System.out.println(dto.getVariable());
-		System.out.println(dto.getNumber());
-		
-		return "notice/list";
+		// React fetch가 받을 공지 목록 JSON 데이터를 반환합니다.
+		return output.getList();
 	}
 	
 	// URL: /notice/add -> 메서드: add() -> JSP: notice/add.jsp

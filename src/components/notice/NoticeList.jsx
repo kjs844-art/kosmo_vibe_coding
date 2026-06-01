@@ -1,29 +1,36 @@
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import { db } from '../../firebase/config'
-import { collection, getDocs, query, orderBy } from 'firebase/firestore'
 
 function NoticeList() {
     // 공지 목록 데이터와 로딩 상태를 화면 안에서 관리합니다.
     const [notices, setNotices] = useState([])
     const [loading, setLoading] = useState(true)
+    const [error, setError] = useState('')
 
     useEffect(() => {
-        // 화면이 처음 열릴 때 공지 데이터를 가져오는 자리입니다.
+        // 화면이 처음 열릴 때 sessionStorage의 JWT를 꺼내 공지 목록 API로 보냅니다.
         const fetchNotices = async () => {
             try {
-                // If Firebase is not configured, we'll use mock data
-                // In a real app, this would be: const q = query(collection(db, "notices"), orderBy("createdAt", "desc"));
-                // But since keys are placeholders, we handle the error
-                const mockNotices = [
-                    { id: 1, title: '골든 로프 홈페이지가 오픈되었습니다!', date: '2026-05-28' },
-                    { id: 2, title: '6월 신제품: 무화과 깜빠뉴 출시 안내', date: '2026-05-25' },
-                    { id: 3, title: '매장 운영 시간 변경 안내', date: '2026-05-20' },
-                ]
-                setNotices(mockNotices)
-                setLoading(false)
+                const accessToken = sessionStorage.getItem('access-token') || sessionStorage.getItem('accessToken')
+
+                const response = await fetch('http://localhost:8090/notice/list', {
+                    method: 'GET',
+                    headers: {
+                        // 백엔드 JwtAuthenticationFilter가 읽는 형식입니다: Authorization: Bearer 토큰값
+                        Authorization: `Bearer ${accessToken}`,
+                    },
+                })
+
+                if (!response.ok) {
+                    throw new Error('공지사항을 불러오지 못했습니다.')
+                }
+
+                const data = await response.json()
+                setNotices(Array.isArray(data) ? data : [data])
             } catch (error) {
-                console.error("Error fetching notices:", error)
+                console.error('notice list error:', error)
+                setError('로그인 후 공지사항을 다시 열어주세요.')
+            } finally {
                 setLoading(false)
             }
         }
@@ -41,6 +48,8 @@ function NoticeList() {
                 <ul className="divide-y divide-gray-200">
                     {loading ? (
                         <li className="p-10 text-center text-gray-500">불러오는 중...</li>
+                    ) : error ? (
+                        <li className="p-10 text-center text-red-600">{error}</li>
                     ) : notices.length > 0 ? (
                         notices.map((notice) => (
                             <li key={notice.id}>

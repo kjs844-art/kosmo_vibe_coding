@@ -2,6 +2,9 @@ package com.example.joe.noticeservice;
 
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /*
  * [Service 역할]
  * Controller가 URL 요청을 받으면, 실제 데이터 준비는 Service에게 위임합니다.
@@ -9,6 +12,30 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class NoticeService {
+
+	public List<NoticeDTO> getList() {
+		List<NoticeDTO> list = new ArrayList<>();
+		
+		NoticeDTO first = new NoticeDTO();
+		first.setId(1L);
+		first.setTitle("골든 로프 홈페이지가 오픈되었습니다!");
+		first.setDate("2026-05-28");
+		list.add(first);
+		
+		NoticeDTO second = new NoticeDTO();
+		second.setId(2L);
+		second.setTitle("6월 신제품: 무화과 깜빠뉴 출시 안내");
+		second.setDate("2026-05-25");
+		list.add(second);
+		
+		NoticeDTO third = new NoticeDTO();
+		third.setId(3L);
+		third.setTitle("매장 운영 시간 변경 안내");
+		third.setDate("2026-05-20");
+		list.add(third);
+		
+		return list;
+	}
 	
 	/*
 	 * [list 데이터 생성 흐름]
