@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
+import { authFetch } from '../../api/apiClient'
 
 function NoticeList() {
     // 공지 목록 데이터와 로딩 상태를 화면 안에서 관리합니다.
@@ -11,15 +12,8 @@ function NoticeList() {
         // 화면이 처음 열릴 때 sessionStorage의 JWT를 꺼내 공지 목록 API로 보냅니다.
         const fetchNotices = async () => {
             try {
-                const accessToken = sessionStorage.getItem('access-token') || sessionStorage.getItem('accessToken')
-
-                const response = await fetch('http://localhost:8090/notice/list', {
-                    method: 'GET',
-                    headers: {
-                        // 백엔드 JwtAuthenticationFilter가 읽는 형식입니다: Authorization: Bearer 토큰값
-                        Authorization: `Bearer ${accessToken}`,
-                    },
-                })
+                // authFetch가 Authorization: Bearer 토큰값 헤더를 자동으로 붙여줍니다.
+                const response = await authFetch('/notice/list')
 
                 if (!response.ok) {
                     throw new Error('공지사항을 불러오지 못했습니다.')
