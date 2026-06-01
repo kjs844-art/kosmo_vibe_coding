@@ -1,0 +1,58 @@
+# React / Vite dependencies and build output
+node_modules/
+dist/
+dist-ssr/
+coverage/
+.vite/
+
+# React local environment files can contain API keys or private URLs.
+.env
+.env.*
+!.env.example
+!.env.*.example
+*.local
+
+# Logs and temporary run outputs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+codex-run-logs/
+backend/**/codex-run-logs/
+
+# Spring Boot / Gradle build output
+.gradle/
+build/
+backend/**/.gradle/
+backend/**/build/
+backend/**/codex-build*/
+backend/**/out/
+backend/**/target/
+*.class
+*.uniqueId*
+previous-compilation-data.bin
+
+# Local Spring profile settings can contain DB URLs, passwords, and JWT secrets.
+backend/kosmo_joe-joe/src/main/resources/application-dev.properties
+backend/kosmo_joe-joe/src/main/resources/application-local.properties
+backend/kosmo_joe-joe/src/main/resources/application-prod.properties
+
+# IDE and OS files
+.vscode/*
+!.vscode/extensions.json
+.idea/
+.run/
+.settings/
+.classpath
+.project
+.factorypath
+.DS_Store
+Thumbs.db
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
