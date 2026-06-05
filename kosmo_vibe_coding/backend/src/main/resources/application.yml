@@ -24,7 +24,11 @@ spring:
 jwt:
   # .env의 JWT_SCRET 키로 서명용 비밀키를 주입받습니다.
   secret: ${JWT_SCRET}
-  expiration: 86400000 # 24시간 (밀리초 단위)
+  expiration: 86400000   # 24시간 (밀리초) - 기존 JwtTokenProvider용
+  # 선생님 수업 JwtTokenManager 방식 추가
+  issuer: kosmo
+  accessValidTime: 60000      # accessToken: 60초 (테스트용, 실제는 15분~1시간)
+  refreshValidTime: 600000    # refreshToken: 600초 (테스트용, 실제는 7일~30일)
 
 file:
   upload-dir: ${UPLOAD_BASE_DIR:D:/upload}
