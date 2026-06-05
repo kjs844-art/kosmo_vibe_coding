@@ -2,14 +2,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Header from "./layout/Header";
 import Footer from "./layout/Footer";
 import MemberLogin from "./components/members/MemberLogin";
-
-function Home() {
-  return (
-    <>
-      <h1>Home Page</h1>
-    </>
-  );
-}
+import Index from "./components/Index";
 
 function App() {
   return (
@@ -17,7 +10,7 @@ function App() {
       <Header />
 
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<Index />} />
         <Route path="/member/login" element={<MemberLogin />} />
       </Routes>
 
